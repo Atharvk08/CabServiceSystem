@@ -1,0 +1,5 @@
+package com.cabservice.profile_service.Controller;
+
+public class UserController {
+
+}

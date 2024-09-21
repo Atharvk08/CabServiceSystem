@@ -1,0 +1,5 @@
+package com.cabservice.payment_service.Controller;
+
+public class PaymentController {
+
+}

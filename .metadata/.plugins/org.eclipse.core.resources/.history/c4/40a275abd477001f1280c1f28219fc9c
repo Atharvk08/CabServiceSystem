@@ -1,0 +1,5 @@
+package com.cabservice.payment_service.Service;
+
+public class PaymentDetailsService {
+
+}

@@ -1,0 +1,7 @@
+package com.cabservice.profile_service.Model;
+
+public class Driver extends User {
+	
+	
+	
+}
