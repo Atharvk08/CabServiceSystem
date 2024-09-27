@@ -1,0 +1,24 @@
+package com.cabservice.map_service;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+
+
+@RestController
+@RequestMapping("/api/v1/map")
+public class MapController {
+	
+	@Autowired 
+	MapService mapService;
+	
+	@GetMapping("/")
+	public String getMethodName(@RequestParam String param) {
+		return new String();
+	}
+	
+}

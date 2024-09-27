@@ -6,5 +6,6 @@ public class GeospatialCoordinate {
 	private double latitude;
 	private double longitude;
 	private String geohash;
-	private Long cabId;
+	private Long userId;
+	private String role;
 }
