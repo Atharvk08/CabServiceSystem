@@ -29,7 +29,7 @@ public class MapController {
             @RequestParam double destLat,
             @RequestParam double destLon ) throws IOException{
      
-		return mapService.NavigateRoute(sourceLat, sourceLon, destLat, destLon);
+		return mapService.getRoute(sourceLat, sourceLon, destLat, destLon);
 		
      }
 

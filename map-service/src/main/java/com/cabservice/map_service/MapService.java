@@ -11,6 +11,7 @@ import okhttp3.Response;
 @Service
 public class MapService {
 
+	private static final String GRASSHOPER_API_KEY = "cceb673a-91d5-4e84-a9b2-adff379ce38d";
 	private final OkHttpClient client = new OkHttpClient();
 	
 
@@ -24,7 +25,6 @@ public class MapService {
 				.header("User-Agent", "Mozilla/5.0 (compatible; AcmeInc/1.0)")
 				.build();
 		System.out.println("Request" + request);
-		String res="";
 		try(Response response = client.newCall(request).execute()){
 			System.out.println(response);
 			if(response.isSuccessful()) {
@@ -41,12 +41,12 @@ public class MapService {
 	
 //	Navigate
 	
-	public String NavigateRoute(Double sourceLat, Double sourceLon,Double destLat, Double destLon ) throws IOException
+	public String getRoute(Double sourceLat, Double sourceLon,Double destLat, Double destLon ) throws IOException
 	{
 		// OSRM API URL for routing
         String url = String.format(
-                "http://router.project-osrm.org/route/v1/driving/%f,%f;%f,%f?overview=full&geometries=geojson",
-                sourceLon, sourceLat, destLon, destLat);
+                "https://graphhopper.com/api/1/route?point=%f,%f&point=%f,%f&vehicle=car&key=%s",
+                 sourceLat,sourceLon,  destLat,destLon,GRASSHOPER_API_KEY);
         
         Request request= new Request.Builder()
         		.url(url)
