@@ -1,0 +1,21 @@
+package com.cabservice.cab_finder_service.Service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cabservice.cab_finder_service.Model.Cab;
+import com.cabservice.cab_finder_service.Repostitory.CabRepository;
+
+@Service
+public class CabService {
+	
+	@Autowired
+	private CabRepository cabRepo;
+	
+	public String addCab(Cab cab)
+	{
+		cabRepo.save(cab);
+	}
+	
+	
+}

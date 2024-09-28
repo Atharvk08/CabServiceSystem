@@ -1,0 +1,5 @@
+package com.cabservice.location_service.Configuration;
+
+public class RedisConfiguration {
+
+}

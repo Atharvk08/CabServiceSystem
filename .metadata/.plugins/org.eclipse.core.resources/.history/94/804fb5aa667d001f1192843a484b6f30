@@ -1,0 +1,44 @@
+package com.cabservice.cab_finder_service.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cabservice.cab_finder_service.Model.Cab;
+import com.cabservice.cab_finder_service.Repostitory.CabRepository;
+
+@Service
+public class CabService {
+	
+	@Autowired
+	private CabRepository cabRepo;
+	
+	public String addCab(Cab cab)
+	{
+		cabRepo.save(cab);
+		return "success";
+	}
+	public String deleteCab(Long cabId)
+	{
+		cabRepo.deleteById(cabId);
+		return "success";
+	}
+	public String updateCab(Cab cab)
+	{
+		cabRepo.save(cab);
+		return "success";
+	}
+	public Cab getCab(Long cabId)
+	{
+		return cabRepo.findAll().get(cabId);
+	}
+	public List<Cab> getAllCab()
+	{
+		return cabRepo.findAll();
+	}
+	
+	
+	
+}

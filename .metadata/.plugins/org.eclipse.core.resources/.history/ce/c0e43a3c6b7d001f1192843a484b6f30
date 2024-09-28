@@ -1,0 +1,27 @@
+package com.cabservice.location_service.Service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+
+import com.cabservice.location_service.Model.GeoCoordinate;
+
+@Service
+public class LocationService {
+
+	private final static String LOCATION_KEY = "locations";
+	
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate; 
+	
+	public void saveLocation(Long userId, Double latitude, Double longitude) {
+		
+		String geohash = encodeGeohash(latitude, longitude);
+		GeoCoordinate location = new GeoCoordinate(userId, latitude, longitude, geohash);
+		
+	}
+    private String encodeGeohash(double latitude, double longitude) {
+        // Implement Geohash encoding logic or use a library
+        return ""; // Return the geohash string
+    }
+}

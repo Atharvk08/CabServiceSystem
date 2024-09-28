@@ -1,0 +1,11 @@
+package com.cabservice.location_service.Model;
+
+
+public class GeoCoordinate {
+	
+	private double latitude;
+	private double longitude;
+	private String geohash;
+	private Long userId;
+	private String role;
+}

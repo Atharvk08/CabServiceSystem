@@ -1,0 +1,23 @@
+package com.cabservice.cab_finder_service.Model;
+
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Cab {
+
+	private Long id;
+	private Long userId;
+	private String registrationNo;
+	private String carModel;
+	private vehicleType carType;
+	
+	public enum vehicleType{
+		AUTO, CAR, SEDAN, XUV, INTERCITY;
+	}
+}

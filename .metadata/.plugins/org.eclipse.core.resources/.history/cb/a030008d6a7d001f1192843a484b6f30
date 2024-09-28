@@ -1,0 +1,5 @@
+package com.cabservice.location_service.Service;
+
+public class LocationService {
+
+}

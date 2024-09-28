@@ -1,0 +1,42 @@
+package com.cabservice.location_service.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cabservice.location_service.Service.LocationService;
+
+@RestController
+@RequestMapping("/api/v1/location")
+public class LocationController {
+
+
+    @Autowired
+    private LocationService locationService;
+
+    @PostMapping("/save")
+    public ResponseEntity<Void> saveLocation(@RequestParam String userId,
+                                              @RequestParam double latitude,
+                                              @RequestParam double longitude) {
+    	
+        locationService.saveLocation( userId,latitude, longitude);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<Location> getLocation(@PathVariable String userId) {
+        Location location = locationService.getLocation(userId);
+        return ResponseEntity.ok(location);
+    }
+
+    @GetMapping("/nearby")
+    public ResponseEntity<List<Location>> getNearbyLocations(@RequestParam double latitude,
+                                                             @RequestParam double longitude,
+                                                             @RequestParam double radius) {
+        List<Location> nearbyLocations = locationService.getNearbyLocations(latitude, longitude, radius);
+        return ResponseEntity.ok(nearbyLocations);
+    }
+}
