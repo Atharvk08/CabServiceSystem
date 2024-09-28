@@ -1,9 +1,0 @@
-package com.cabservice.payment_service.Repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.cabservice.payment_service.Model.PaymentDetails;
-
-public interface PaymentDetailsRepository extends JpaRepository<PaymentDetails, Long> {
-
-}

@@ -1,5 +1,0 @@
-package com.cabservice.profile_service.Repository;
-
-public class UserRepository {
-
-}

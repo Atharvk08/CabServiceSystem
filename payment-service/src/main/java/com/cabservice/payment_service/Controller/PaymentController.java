@@ -1,31 +1,55 @@
 package com.cabservice.payment_service.Controller;
 
+import java.io.IOException;
+
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cabservice.payment_service.Service.MapServiceClient;
 import com.cabservice.payment_service.Service.PaymentDetailsService;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import ch.qos.logback.classic.LoggerContext;
 
 @RestController
+@RequestMapping("/api/v1/payment")
 public class PaymentController {
 
+	
 	@Autowired
 	private PaymentDetailsService paymentService;
 	
+	@Autowired
+	private MapServiceClient mapServiceClient;
+	
 	@GetMapping("/price/{trip_id}")
 	public Double getPrice(@PathVariable Long trip_id) {
-		
+		System.out.println("get price called");
 		return paymentService.getPrice(trip_id);
 	}
 	
-	@GetMapping("/estimated-price")
-	public Double getPrice(@RequestParam String lat1,String lon1, String lat2, String lon2) {
-		
-		return paymentService.getEstimatedPrice(lat1, lon1, lat2, lon2);
+	@GetMapping("/estimate-time")
+	public String getEstimatedPrice(@RequestParam Double sourceLat,Double sourceLon, Double destLat, Double destLon) throws IOException {
+		System.out.println("The est price endpoint called");
+		return mapServiceClient.getEstimatedPrice(sourceLat, sourceLon, destLat, destLon);
 	}
 	
 //	for make payment endpoint
+	
+	@PostMapping("/payment-gateway")
+	public String makePayment(@RequestBody String entity) {
+		//TODO: process POST request
+		
+		return entity;
+	}
+	
 	
 }

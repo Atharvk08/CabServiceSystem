@@ -1,5 +1,0 @@
-package com.cabservice.payment_service.Model;
-
-public class PaymentDetails {
-
-}

@@ -1,5 +1,0 @@
-package com.cabservice.payment_service.Repository;
-
-public class PaymentDetailsRepository {
-
-}

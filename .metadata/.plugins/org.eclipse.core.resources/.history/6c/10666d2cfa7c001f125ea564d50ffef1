@@ -1,0 +1,41 @@
+package com.cabservice.payment_service.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cabservice.payment_service.Service.PaymentDetailsService;
+
+@RestController
+public class PaymentController {
+
+	@Autowired
+	private PaymentDetailsService paymentService;
+	
+	@GetMapping("/price/{trip_id}")
+	public Double getPrice(@PathVariable Long trip_id) {
+		
+		return paymentService.getPrice(trip_id);
+	}
+	
+	@GetMapping("/estimated-price")
+	public Double getEstimatedPrice(@RequestParam String lat1,String lon1, String lat2, String lon2) {
+		
+		return paymentService.getEstimatedPrice(lat1, lon1, lat2, lon2);
+	}
+	
+//	for make payment endpoint
+	
+	@PostMapping("/payment-gateway")
+	public String makePayment(@RequestBody String entity) {
+		//TODO: process POST request
+		
+		return entity;
+	}
+	
+	
+}

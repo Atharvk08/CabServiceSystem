@@ -1,0 +1,69 @@
+package com.cabservice.payment_service.Service;
+
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cabservice.payment_service.Model.PaymentDetails;
+import com.cabservice.payment_service.Repository.PaymentDetailsRepository;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+@Service
+public class PaymentDetailsService {
+	
+	private static final String GRASSHOPER_API_KEY = "cceb673a-91d5-4e84-a9b2-adff379ce38d";
+	private final OkHttpClient client = new OkHttpClient();
+
+	@Autowired
+	private PaymentDetailsRepository paymentRepository;
+	
+	public PaymentDetails getPaymentById(Long id) {
+		
+		return paymentRepository.getReferenceById(id);
+	}
+	
+	public String getEstimatedPrice(String lat1, String lon1, String lat2, String lon2) throws IOException {
+		Double amount=0.0;
+		
+		// Logic here for estimated price based on the lat lon of the source location and destination location
+		
+		// OSRM API URL for routing
+        String url = String.format(
+                "https://graphhopper.com/api/1/route?point=%f,%f&point=%f,%f&vehicle=car&key=%s",
+                 lat1,lon1,  lat2,lon2,GRASSHOPER_API_KEY);
+        
+        Request request= new Request.Builder()
+        		.url(url)
+        		.header("User-Agent", "Mozilla/5.0 (compatible; AcmeInc/1.0)")
+        		.build();
+        
+        try(Response response = client.newCall(request).execute()){
+        	if(response.isSuccessful()) {
+        		return response.body().string();
+        	}else {
+        		return "Failed to fetch route: "+response.code();
+        	}
+        }
+		
+	}
+	
+	public Double getPrice(Long tripId) {
+		double amount=0.0;
+		
+//		logic here
+		
+		return amount;
+	}
+	
+	public Boolean makePayment(Long tripId, Double amount) {
+		
+//		logic here
+		
+		return true;
+	}
+	
+}

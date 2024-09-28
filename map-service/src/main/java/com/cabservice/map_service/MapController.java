@@ -3,9 +3,12 @@ package com.cabservice.map_service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,5 +35,13 @@ public class MapController {
 		return mapService.getRoute(sourceLat, sourceLon, destLat, destLon);
 		
      }
+	
+	@GetMapping("/estimated-time-distance")
+	public String getEstimatedTimeAndDistance(@RequestParam double sourceLat,@RequestParam double sourceLon,
+            @RequestParam double destLat,
+            @RequestParam double destLon ) throws IOException {
+		return mapService.getEstimatedTimeAndDistance(sourceLat, sourceLon, destLat, destLon);
+	}
+	
 
 }

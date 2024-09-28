@@ -1,8 +1,0 @@
-package com.cabservice.profile_service.Model;
-
-public abstract class User {
-	
-	private Long id;
-	private Long 
-	
-}

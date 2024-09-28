@@ -2,7 +2,12 @@ package com.cabservice.map_service;
 
 import java.io.IOException;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -39,6 +44,8 @@ public class MapService {
 
 	}
 	
+
+
 //	Navigate
 	
 	public String getRoute(Double sourceLat, Double sourceLon,Double destLat, Double destLon ) throws IOException
@@ -62,7 +69,53 @@ public class MapService {
         }
 	}
 	
-	
-	
+//	get estimated time and distance
+	public String getEstimatedTimeAndDistance(double sourceLat, double sourceLon, double destLat, double destLon) throws IOException {
+		
+		// Logic here for estimated price based on the lat lon of the source location and destination location
+		
+		// OSRM API URL for routing
+        String url = String.format(
+                "https://graphhopper.com/api/1/route?point=%f,%f&point=%f,%f&vehicle=car&key=%s",
+                 sourceLat,sourceLon,  destLat,destLon,GRASSHOPER_API_KEY);
+        
+        Request request= new Request.Builder()
+        		.url(url)
+        		.header("User-Agent", "Mozilla/5.0 (compatible; AcmeInc/1.0)")
+        		.build();
+        
+        try(Response response = client.newCall(request).execute()){
+        	if(response.isSuccessful()) {
+        		String responseString=  response.body().string();
+        		
+        		ObjectMapper objectMapper =  new ObjectMapper();
+        		ObjectNode jsonResponse = objectMapper.createObjectNode();
+        		
+        		JsonNode rootNode= objectMapper.readTree(responseString);
+        		
+        		JsonNode pathsNode = rootNode.path("paths");
+        		
+        		if(pathsNode.isArray() && pathsNode.size() >0)
+        		{
+        			JsonNode firstPath = pathsNode.get(0);
+        			long timeInMilliseconds = firstPath.path("time").asLong();
+        			
+        			double timeInMinutes = timeInMilliseconds/60000.0;
+        			
+        			jsonResponse.put("time_in_minutes", timeInMinutes);
+        			jsonResponse.put("distance_in_meters", firstPath.path("distance").asDouble());
+        			
+//        			return ResponseEntity.ok(jsonResponse.toString());
+        			return objectMapper.writeValueAsString(jsonResponse);
+        		}else {
+        			jsonResponse.put("error" , "No Route found");
+        			return objectMapper.writeValueAsString(jsonResponse);
+        		}
+        		
+        	}
+        }
+		return "error";
+		
+	}
 	
 }
