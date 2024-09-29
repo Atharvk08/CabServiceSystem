@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +17,7 @@ import com.cabservice.trip_service.Service.TripService;
 import jakarta.ws.rs.POST;
 
 @RestController
+@RequestMapping("/api/v1/trip")
 public class TripController {
 
 	@Autowired
@@ -25,8 +28,8 @@ public class TripController {
 		return tripService.getTrip(tripId, userID);
 		
 	}
-	@GetMapping("/")
-	public List<Trip> getAllTrip(@RequestParam Long userID) {
+	@GetMapping("/{userID}")
+	public List<Trip> getAllTrip(@PathVariable Long userID) {
 		return tripService.getAllTrips(userID);
 		
 	}
