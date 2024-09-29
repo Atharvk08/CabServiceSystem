@@ -1,0 +1,5 @@
+package com.cabservice.cab_finder_service.Service;
+
+public class RideAcceptanceListener {
+
+}

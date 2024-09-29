@@ -38,10 +38,10 @@ public class LocationController {
     }
 
     @GetMapping("/nearby")
-    public ResponseEntity<List<GeoCoordinate>> getNearbyLocations(@RequestParam double latitude,
+    public String getNearbyLocations(@RequestParam double latitude,
                                                              @RequestParam double longitude,
                                                              @RequestParam double radius) {
-        List<GeoCoordinate> nearbyLocations = locationService.getNearByLocations(latitude, longitude, radius);
-        return ResponseEntity.ok(nearbyLocations);
+        String nearbyLocations = locationService.getNearByLocations(latitude, longitude, radius);
+        return nearbyLocations;
     }
 }

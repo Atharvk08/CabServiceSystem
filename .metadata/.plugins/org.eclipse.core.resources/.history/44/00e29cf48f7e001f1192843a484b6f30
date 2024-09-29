@@ -1,0 +1,5 @@
+package com.cabservice.cab_finder_service.Controller;
+
+public class RideController {
+
+}

@@ -1,0 +1,88 @@
+package com.cabservice.cab_finder_service.Service;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.cabservice.cab_finder_service.Model.Cab;
+import com.cabservice.cab_finder_service.Model.RideRequest;
+import com.cabservice.cab_finder_service.Repostitory.CabRepository;
+
+@Service
+public class CabService {
+	
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
+	
+	private static final String NOTIFICATION_CHANNEL = "rideNotifications";
+
+	private static final Double RADIUS = 5.0;
+	
+	@Autowired
+	private CabRepository cabRepo;
+	
+	private List<Cab> findAllCabsNearby(double latitude, double longitude,Double radius)
+	{
+		List<Cab> result = new LinkedList<>();
+		
+		
+		
+		return result;
+	}
+	
+	private void sendNotification(String driverId, RideRequest rideRequest) {
+		redisTemplate.convertAndSend(NOTIFICATION_CHANNEL, rideRequest);
+	}
+	
+	public String bookRide(@RequestBody RideRequest rideRequest)
+	{
+		
+		List<Cab> nearByDrivers = findAllCabsNearby(rideRequest.getSourceLat(),rideRequest.getSourceLon(),RADIUS);
+		for(Cab driver : nearByDrivers) {
+			sendNotification(driver.getId().toString(), rideRequest);
+		}
+		
+		return "Ride request sent to nearby drivers";
+	}
+	
+	
+	public String bookRide() {
+		
+		return "ride req sent";
+	}
+	
+	
+	
+	public String addCab(Cab cab)
+	{
+		cabRepo.save(cab);
+		return "success";
+	}
+	public String deleteCab(Long cabId)
+	{
+		cabRepo.deleteById(cabId);
+		return "success";
+	}
+	public String updateCab(Cab cab)
+	{
+		cabRepo.save(cab);
+		return "success";
+	}
+	public Optional<Cab> getCab(Long cabId)
+	{
+		Optional<Cab> cab = cabRepo.findById(cabId);
+		return cab;
+	}
+	public List<Cab> getAllCab()
+	{
+		return cabRepo.findAll();
+	}
+	
+	
+	
+}

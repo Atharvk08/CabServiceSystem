@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cabservice.trip_service.Model.Trip;
 import com.cabservice.trip_service.Service.TripService;
+
+import jakarta.ws.rs.POST;
 
 @RestController
 public class TripController {
@@ -26,5 +30,12 @@ public class TripController {
 		return tripService.getAllTrips(userID);
 		
 	}
+	
+	@PostMapping("/")			
+	public String acceptTrip(@RequestParam Long userId ,@RequestBody Trip trip) {
+		//TODO: process POST request
+		return tripService.acceptTrip(trip);
+	}
+	
 	
 }

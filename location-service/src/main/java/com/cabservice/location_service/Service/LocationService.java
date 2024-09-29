@@ -14,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.cabservice.location_service.Model.GeoCoordinate;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Service
 public class LocationService {
@@ -47,7 +50,7 @@ public class LocationService {
 		return (GeoCoordinate) redisTemplate.opsForValue().get(userId);
 	}
 	
-	public List<GeoCoordinate> getNearByLocations(Double latitude, Double longitude, Double radius){
+	public String getNearByLocations(Double latitude, Double longitude, Double radius){
 		GeoOperations<String, Object> geoOps = redisTemplate.opsForGeo();
 		Circle circle = new Circle(new Point(latitude, longitude), radius);
 		List<Object> nearByUserIds = geoOps.radius(LOCATION_KEY, circle)
@@ -61,11 +64,29 @@ public class LocationService {
 			if(currentLoc.getRole() == "DRIVER")
 				locations.add(currentLoc);
 		}
-		return locations;
+//		convert to JsonObject string
+		return convertToJSONString(locations);
+		
 	}
 	
 	
-    private String encodeGeohash(double latitude, double longitude) {
+    private String convertToJSONString(List<GeoCoordinate> locations) {
+		// TODO Auto-generated method stub
+		
+    	ObjectMapper objMapper = new ObjectMapper();
+    	String jsonString ="";
+    	
+    	try {
+			objMapper.writeValueAsString(locations);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonString;
+
+	}
+
+	private String encodeGeohash(double latitude, double longitude) {
         // Implement Geohash encoding logic or use a library
 
 

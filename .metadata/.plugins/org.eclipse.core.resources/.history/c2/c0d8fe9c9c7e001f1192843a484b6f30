@@ -1,0 +1,137 @@
+package com.cabservice.cab_finder_service.Service;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.RestTemplate;
+
+import com.cabservice.cab_finder_service.Model.Cab;
+import com.cabservice.cab_finder_service.Model.RideRequest;
+import com.cabservice.cab_finder_service.Model.Cab.vehicleType;
+import com.cabservice.cab_finder_service.Model.CabDTO;
+import com.cabservice.cab_finder_service.Repostitory.CabRepository;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Service
+public class CabService {
+	
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
+	
+	private static final String NOTIFICATION_CHANNEL = "rideNotifications";
+
+	private static final Double RADIUS = 5.0;
+
+	private static final String RIDE_STATUS_KEY = "rideStatus";
+	
+	public final static String LOCATION_SERVICE_URL = "http://localhost:8086";
+
+	
+	@Autowired
+	private CabRepository cabRepo;
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	private List<CabDTO> findAllCabsNearby(Double userLatitude, Double userLongitude,Double radius)
+	{
+		List<CabDTO> result = new LinkedList<>();
+		
+		String path = String.format("/api/v1/location/nearby?lat=%f&long=%f&radius=%f", userLatitude, userLongitude,radius);
+		
+		System.out.println("location service path = "+path);
+		
+		var response = restTemplate.getForObject(LOCATION_SERVICE_URL+ path, String.class);
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		try {
+			
+			JsonNode rootNode = objectMapper.readTree(response);
+			for(JsonNode node: rootNode)
+			{
+				String driverId = node.get("userId").asText();
+				Double latitude = node.get("latitude").asDouble();
+				Double longitude = node.get("longitude").asDouble();
+				
+				result.add(new CabDTO(driverId,latitude,longitude));
+				
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.getStackTrace();
+		}
+		
+		return result;
+	}
+	
+	private void sendNotification(String driverId, RideRequest rideRequest) {
+		if(!isRideAccepted(rideRequest.getUserId()))
+			redisTemplate.convertAndSend(NOTIFICATION_CHANNEL, rideRequest);
+	}
+	
+	public String bookRide(@RequestBody RideRequest rideRequest)
+	{
+		
+		List<Cab> nearByDrivers = findAllCabsNearby(rideRequest.getSourceLat(),rideRequest.getSourceLon(),RADIUS);
+	
+		if(isRideAccepted(rideRequest.getUserId())) {
+			return "ride has been already accepted"; 
+		}
+		
+		for(Cab driver : nearByDrivers) {
+			sendNotification(driver.getId().toString(), rideRequest);
+		}
+		
+		return "Ride request sent to nearby drivers";
+	}
+	
+	
+	private boolean isRideAccepted(String userId) {
+		// TODO Auto-generated method stub
+		String status = (String) redisTemplate.opsForHash().get(RIDE_STATUS_KEY, userId);
+		
+		return "ACCEPTED".equals(status);
+	}
+
+	public String bookRide() {
+		
+		return "ride req sent";
+	}
+	
+	
+	
+	public String addCab(Cab cab)
+	{
+		cabRepo.save(cab);
+		return "success";
+	}
+	public String deleteCab(Long cabId)
+	{
+		cabRepo.deleteById(cabId);
+		return "success";
+	}
+	public String updateCab(Cab cab)
+	{
+		cabRepo.save(cab);
+		return "success";
+	}
+	public Optional<Cab> getCab(Long cabId)
+	{
+		Optional<Cab> cab = cabRepo.findById(cabId);
+		return cab;
+	}
+	public List<Cab> getAllCab()
+	{
+		return cabRepo.findAll();
+	}
+	
+	
+	
+}
