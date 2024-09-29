@@ -1,0 +1,18 @@
+package com.cabservice.map_service;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class LocationResponse {
+
+	@JsonProperty("lat")
+	private Double latitude;
+	@JsonProperty("lon")
+	private Double longitude;
+}

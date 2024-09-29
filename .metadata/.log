@@ -2381,3 +2381,6 @@ java.util.concurrent.CompletionException: org.eclipse.lsp4j.jsonrpc.ResponseErro
 	at java.base/java.lang.Thread.run(Thread.java:1570)
 Caused by: org.eclipse.lsp4j.jsonrpc.ResponseErrorException: Internal error.
 	... 11 more
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-09-30 02:29:29.597
+!MESSAGE Classpath changed for project: cab-finder-service

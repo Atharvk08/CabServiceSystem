@@ -36,6 +36,11 @@ public class MapController {
 		
      }
 	
+	@GetMapping("get-coordinates")
+	public String getCoordinates(@RequestParam String q) {
+		return mapService.getLatLong(q);
+	}
+	
 	@GetMapping("/estimated-time-distance")
 	public String getEstimatedTimeAndDistance(@RequestParam double sourceLat,@RequestParam double sourceLon,
             @RequestParam double destLat,

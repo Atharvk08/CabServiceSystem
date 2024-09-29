@@ -22,7 +22,7 @@ public class RideNotificationListener implements MessageListener {
 		RideRequest rideRequest = (RideRequest) redisTemplate.getValueSerializer().deserialize(message.getBody());
 		
 //		driver to accept the ride
-		String driverId = "driverId";
+		String driverId = "17";
 	if(!isRideAccepted(rideRequest.getUserId())){	
 		if(acceptRide(driverId, rideRequest)) {
 			stopNotification(rideRequest);

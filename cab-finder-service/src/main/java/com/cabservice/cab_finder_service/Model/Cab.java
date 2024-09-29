@@ -21,6 +21,11 @@ public class Cab {
 	private String registrationNo;
 	private String carModel;
 	private vehicleType carType;
+	private Status status;
+	
+	public enum Status{
+		AVAILABLE, IN_A_RIDE, DISCONNECTED;
+	}
 	
 	public enum vehicleType{
 		AUTO, CAR, SEDAN, XUV, INTERCITY;
