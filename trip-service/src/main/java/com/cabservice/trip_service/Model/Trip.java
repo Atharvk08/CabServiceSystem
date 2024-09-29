@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 //@Entity
 public class Trip {
 //	@Id
-	private Long id;
+	private String id;
 	private Long userId;
 	private Long driverId;
 	private Status status;
@@ -20,7 +20,7 @@ public class Trip {
 	private Double end_latitude;
 	private Double start_longitude;
 	private Double end_longitude;
-	private List<String> path;
+	private List<String> route;
 	private Long paymentId;
 	
 	public enum Status{

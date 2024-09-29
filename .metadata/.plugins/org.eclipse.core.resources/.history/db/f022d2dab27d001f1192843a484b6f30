@@ -1,0 +1,5 @@
+package com.cabservice.trip_service.Configuration;
+
+public class RedisConfiguration {
+
+}
