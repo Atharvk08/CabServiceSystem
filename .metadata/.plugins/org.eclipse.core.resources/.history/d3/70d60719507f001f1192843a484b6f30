@@ -1,0 +1,5 @@
+package com.cabservice.trip_service.Model;
+
+public class TripDTO {
+
+}

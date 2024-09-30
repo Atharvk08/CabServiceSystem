@@ -15,6 +15,7 @@ import com.cabservice.cab_finder_service.Model.RideRequest;
 import com.cabservice.cab_finder_service.Model.Cab.vehicleType;
 import com.cabservice.cab_finder_service.Model.CabDTO;
 import com.cabservice.cab_finder_service.Repostitory.CabRepository;
+import com.cabservice.trip_service.Model.Trip.Status;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -103,6 +104,29 @@ public class CabService {
 	public String bookRide() {
 		
 		return "ride req sent";
+	}
+	
+	public String endRide()
+	{
+//		private String id;
+//		private Long userId;
+//		private Long driverId;
+//		private Status status;
+//		private Double start_latitude;
+//		private Double end_latitude;
+//		private Double start_longitude;
+//		private Double end_longitude;
+//		private List<String> route;
+//		private Long paymentId;
+		
+//		make payment
+		
+		
+		
+//		driver is available now
+		
+		
+		return "";
 	}
 	
 	

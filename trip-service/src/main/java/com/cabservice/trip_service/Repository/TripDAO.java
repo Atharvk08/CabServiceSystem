@@ -22,9 +22,13 @@ public class TripDAO {
 		return trip;
 	}
 	
-	public Trip findTripById(String id) {
-		return (Trip) template.opsForHash().get(HASH_KEY_TRIP, id);
+	public Trip findTripById(String tripId) {
+		return (Trip) template.opsForHash().get(HASH_KEY_TRIP, tripId);
 	}
+	
+//	public Trip findTripByUserId(String userId) {
+//		if(template.opsForHash().)
+//	}
 	
 	public List<Trip> findAll() {
 		return template.opsForHash().values(HASH_KEY_TRIP);

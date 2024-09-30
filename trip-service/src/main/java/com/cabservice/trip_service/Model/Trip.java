@@ -22,6 +22,7 @@ public class Trip {
 	private Double end_longitude;
 	private List<String> route;
 	private Long paymentId;
+	private Double amount;
 	
 	public enum Status{
 		NOT_STARTED, IN_PROGRESS, ENDED

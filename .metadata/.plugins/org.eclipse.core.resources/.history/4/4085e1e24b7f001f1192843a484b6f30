@@ -1,0 +1,5 @@
+ackage com.cabservice.payment_service.Service;
+
+public class TripServiceClient {
+
+}

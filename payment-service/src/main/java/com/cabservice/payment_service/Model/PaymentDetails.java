@@ -20,6 +20,6 @@ public class PaymentDetails {
 	private Double amount;
 	private String status;
 	private Double commissionAmount;
-	
+	private Long tripId;
 	
 }

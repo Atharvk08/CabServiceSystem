@@ -23,4 +23,9 @@ public class RideController {
 		return cabService.bookRide(rideRequest);
 	}
 	
+	public String endRide() {
+		
+		return "";
+	}
+	
 }
