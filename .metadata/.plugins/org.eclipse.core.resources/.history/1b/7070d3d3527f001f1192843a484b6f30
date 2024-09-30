@@ -108,17 +108,29 @@ public class CabService {
 	
 	public String endRide(Long cabId)
 	{
+//		private String id;
+//		private Long userId;
+//		private Long driverId;
+//		private Status status;
+//		private Double start_latitude;
+//		private Double end_latitude;
+//		private Double start_longitude;
+//		private Double end_longitude;
+//		private List<String> route;
+//		private Long paymentId;
+		
+//		make payment
+		
 //		driver is available now
 		
 		Optional<Cab> cab =getCab(cabId);
-		if(cab.isPresent()) {
-			cab.get().setStatus(com.cabservice.cab_finder_service.Model.Cab.Status.AVAILABLE);
-			return "Success";
-			
+		if(cab==null) {
+			return "Error occurred ";
 		}
 		
 		
-		return "Error";
+		
+		return "";
 	}
 	
 	

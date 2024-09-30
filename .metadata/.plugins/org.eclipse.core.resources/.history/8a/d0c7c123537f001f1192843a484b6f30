@@ -1,0 +1,5 @@
+package com.cabservice.trip_service.Model.Trip;
+
+public class Status {
+	AVAILABLE, IN_A_RIDE, DISCONNECTED;
+}

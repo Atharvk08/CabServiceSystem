@@ -58,10 +58,4 @@ public class TripService {
 		
 		return "Success";
 	}
-	public String updatePaymentId(String tripId ,TripDTO response)
-	{
-		Trip trip=getTrip(tripId);
-		trip.setPaymentId(Long.parseLong(response.getPayload()));
-		return "success";
-	}
 }

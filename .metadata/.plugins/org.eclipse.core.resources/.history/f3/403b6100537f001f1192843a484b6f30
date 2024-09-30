@@ -108,6 +108,19 @@ public class CabService {
 	
 	public String endRide(Long cabId)
 	{
+//		private String id;
+//		private Long userId;
+//		private Long driverId;
+//		private Status status;
+//		private Double start_latitude;
+//		private Double end_latitude;
+//		private Double start_longitude;
+//		private Double end_longitude;
+//		private List<String> route;
+//		private Long paymentId;
+		
+//		make payment
+		
 //		driver is available now
 		
 		Optional<Cab> cab =getCab(cabId);

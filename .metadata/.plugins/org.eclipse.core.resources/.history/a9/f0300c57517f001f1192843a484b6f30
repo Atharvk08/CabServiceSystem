@@ -38,17 +38,11 @@ public class TripController {
 		
 	}
 	
-	@PutMapping("/price/{userId}")
+	@PutMapping("/{userId}")
 	public String updatePrice(@PathVariable Long userId, @RequestParam String tripId, @RequestBody TripDTO response) {
 		//TODO: process PUT request
 		
 		return tripService.updatePrice(tripId, response);
-	}
-	@PutMapping("/payment/{userId}")
-	public String updatePaymentId(@PathVariable Long userId, @RequestParam String tripId, @RequestBody TripDTO response) {
-		//TODO: process PUT request
-		
-		return tripService.updatePaymentId(tripId, response);
 	}
 	@GetMapping("/get-trip/{tripId}")
 	public String getTripAmount(@PathVariable String tripId) throws JsonProcessingException {

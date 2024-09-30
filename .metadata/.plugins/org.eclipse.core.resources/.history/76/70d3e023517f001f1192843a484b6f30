@@ -62,6 +62,5 @@ public class TripService {
 	{
 		Trip trip=getTrip(tripId);
 		trip.setPaymentId(Long.parseLong(response.getPayload()));
-		return "success";
 	}
 }
