@@ -1,5 +1,0 @@
-package com.cabservice.cab_finder_service.Configuration;
-
-public class RideNotificationListener {
-
-}

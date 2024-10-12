@@ -1,5 +1,0 @@
-package com.cabservice.location_service.Model;
-
-public class DriverDTO {
-
-}

@@ -1,5 +1,0 @@
-package com.cabservice.trip_service.Service;
-
-public interface TripRepository extends {
-
-}

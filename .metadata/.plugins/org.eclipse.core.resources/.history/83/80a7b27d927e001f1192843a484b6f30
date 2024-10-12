@@ -1,8 +1,0 @@
-package com.cabservice.cab_finder_service.Configuration;
-
-import org.springframework.stereotype.Service;
-
-@Service
-public class RideNotificationListener {
-
-}

@@ -1,5 +1,0 @@
-package com.cabservice.trip_service.Model.Trip;
-
-public class Status {
-
-}

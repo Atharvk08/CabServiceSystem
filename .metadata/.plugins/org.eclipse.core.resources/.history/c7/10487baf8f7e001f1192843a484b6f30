@@ -1,5 +1,0 @@
-package com.cabservice.cab_finder_service.Model;
-
-public class RideRequest {
-
-}
